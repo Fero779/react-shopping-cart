@@ -3,6 +3,18 @@ import { Link } from 'react-router-dom'
 
 const Cart = ({ cart, setCart }) => {
 
+  // Ensure items have a default quantity of 1
+  const addItemToCart = (newItem) => {
+    const itemExists = cart.find(item => item.id === newItem.id);
+    if (itemExists) {
+      setCart(cart.map(item => 
+        item.id === newItem.id ? { ...item, quantity: item.quantity + 1 } : item
+      ));
+    } else {
+      setCart([...cart, { ...newItem, quantity: 1 }]);
+    }
+  }
+
   const handleDelete = (productId) => {
     const updatedCart = cart.filter(product => product.id !== productId);
     setCart(updatedCart);

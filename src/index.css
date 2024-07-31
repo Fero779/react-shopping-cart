@@ -43,6 +43,7 @@ input::placeholder{
     background-color: #4b1b78;
     color: white;
     font-weight: bold;
+    cursor: pointer;
 }
 
 .img{
