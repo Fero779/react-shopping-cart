@@ -52,7 +52,7 @@ const Cart = ({ cart, setCart }) => {
           ) : (
             cart.map((product) => {
               if (!product.quantity) {
-                product.quantity = 1;  // Ensure the quantity defaults to 1
+                product.quantity = 1;  
               }
 
               return (
