@@ -13,7 +13,7 @@ const Product = ({items, cart , setCart}) => {
     setCart([...cart, obj]);
     console.log("Cart element = ",cart)
     toast.success('Item added on cart', {
-      position: "top-right",
+      position:"top-center",
       autoClose: 1500,
       hideProgressBar: false,
       closeOnClick: true,
@@ -28,7 +28,7 @@ const Product = ({items, cart , setCart}) => {
   return (
     <>
     <ToastContainer
-position="top-right"
+position="top-center"
 autoClose={1500}
 hideProgressBar={false}
 newestOnTop={false}
