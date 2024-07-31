@@ -1,24 +1,23 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React from 'react';
+import { Link } from 'react-router-dom';
 
 const Cart = ({ cart, setCart }) => {
 
-  // Ensure items have a default quantity of 1
   const addItemToCart = (newItem) => {
     const itemExists = cart.find(item => item.id === newItem.id);
     if (itemExists) {
-      setCart(cart.map(item => 
+      setCart(cart.map(item =>
         item.id === newItem.id ? { ...item, quantity: item.quantity + 1 } : item
       ));
     } else {
       setCart([...cart, { ...newItem, quantity: 1 }]);
     }
-  }
+  };
 
   const handleDelete = (productId) => {
     const updatedCart = cart.filter(product => product.id !== productId);
     setCart(updatedCart);
-  }
+  };
 
   const handleQuantityChange = (productId, newQuantity) => {
     const updatedCart = cart.map(product => {
@@ -28,32 +27,34 @@ const Cart = ({ cart, setCart }) => {
       return product;
     });
     setCart(updatedCart);
-  }
+  };
 
   const calculateTotalPrice = () => {
-    return cart.reduce((total, product) => total + (Number(product.price) * product.quantity), 0);
-  }
+    return cart.reduce((total, product) => total + (Number(product.price) * (product.quantity || 1)), 0);
+  };
 
   const formatPrice = (price) => {
     return price.toLocaleString('en-IN', {
       minimumFractionDigits: 2,
       maximumFractionDigits: 2
     });
-  }
+  };
 
   return (
     <>
       <div className="container my-5" style={{ width: "54%" }}>
         {
           cart.length === 0 ? (
-            <>
-              <div className='text-center'>
-                <h1>Your Cart is Empty</h1>
-                <Link to={"/"} className='btn btn-warning'>Continue Shopping...</Link>
-              </div>
-            </>
-          ) :
+            <div className='text-center'>
+              <h1>Your Cart is Empty</h1>
+              <Link to={"/"} className='btn btn-warning'>Continue Shopping...</Link>
+            </div>
+          ) : (
             cart.map((product) => {
+              if (!product.quantity) {
+                product.quantity = 1;  // Ensure the quantity defaults to 1
+              }
+
               return (
                 <div key={product.id} className="card mb-3 my-5" style={{ width: '700px' }}>
                   <div className="row g-0">
@@ -87,7 +88,9 @@ const Cart = ({ cart, setCart }) => {
                   </div>
                 </div>
               )
-            })}
+            })
+          )
+        }
       </div>
 
       {
@@ -109,4 +112,4 @@ const Cart = ({ cart, setCart }) => {
   )
 }
 
-export default Cart
+export default Cart;
