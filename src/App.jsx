@@ -8,6 +8,7 @@ import Cart from './components/Cart'
 import { items } from './components/Data'
 
 
+
 const App = () => {
   const [data, setData] = useState([...items])
   const [cart, setCart] = useState([])
